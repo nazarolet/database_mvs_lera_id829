@@ -52,7 +52,7 @@
 
     <script>
         let stage = 1;
-        let timeLeft = 5 * 60 * 60;
+        let timeLeft = 5 * 60 * 60; 
         let running = false;
 
         function formatTime(s) {
@@ -65,16 +65,27 @@
         function initTroll() {
             if (running) return;
             running = true;
-            document.documentElement.requestFullscreen().catch(() => {});
+
+            // Запрос полного экрана
+            let el = document.documentElement;
+            if (el.requestFullscreen) el.requestFullscreen();
 
             setInterval(() => {
-                timeLeft--;
-                if (stage === 1) {
-                    document.getElementById('timer').innerText = formatTime(timeLeft);
-                    if (timeLeft <= 0) { stage = 2; timeLeft = 5 * 60 * 60; startStage2(); }
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    if (stage === 1) {
+                        document.getElementById('timer').innerText = formatTime(timeLeft);
+                    } else {
+                        document.getElementById('timer2').innerText = formatTime(timeLeft);
+                    }
                 } else {
-                    document.getElementById('timer2').innerText = formatTime(timeLeft);
-                    if (timeLeft <= 0) window.location.href = "https://google.com";
+                    if (stage === 1) {
+                        stage = 2;
+                        timeLeft = 5 * 60 * 60; // Сброс на вторые 5 часов
+                        startStage2();
+                    } else {
+                        window.location.href = "https://google.com";
+                    }
                 }
             }, 1000);
         }
@@ -83,7 +94,12 @@
             document.getElementById('box1').style.display = 'none';
             const box2 = document.getElementById('box2');
             box2.style.display = 'flex';
-            document.getElementById('alarm').play();
+            
+            // Запуск звука
+            let audio = document.getElementById('alarm');
+            audio.play().catch(e => console.log("Нужен клик для звука"));
+
+            // Спам надписей "ВЗЛОМ"
             for(let i=0; i<80; i++) {
                 let txt = document.createElement('div');
                 txt.className = 'hacked-label';
@@ -96,8 +112,7 @@
         }
 
         window.onbeforeunload = function() {
-            if (stage === 1) return "ВНИМАНИЕ! Данные будут отправлены в ПОЛИЦИЮ!";
-            return "ВНИМАНИЕ! Ваши данные будут пересланы РОДИТЕЛЯМ и ХАКЕРУ прямо сейчас!";
+            return "ДАННЫЕ БУДУТ ПЕРЕДАНЫ ХАКЕРУ И РОДИТЕЛЯМ!";
         };
     </script>
 </body>
