@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>System Diagnostic Protocol</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Segoe UI', sans-serif; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Segoe UI', sans-serif; cursor: pointer; }
         .stage1 { background-color: #ffffff; color: #28a745; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; padding: 20px; }
         .stage2 { display: none; background-color: #000000; color: #ff0000; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; position: relative; }
         .warning-text { color: #dc3545; font-weight: bold; border: 2px solid red; padding: 15px; margin: 20px 0; max-width: 90%; }
         #timer, #timer2 { font-size: 3.5rem; font-family: monospace; font-weight: bold; }
     </style>
 </head>
-<body onclick="initTroll()">
+<body onclick="handleInteraction()">
 
-    <!-- ЭТАП 1: ЗЕЛЕНЫЙ НА БЕЛОМ (ПОЛИЦИЯ) -->
+    <!-- ЭТАП 1: ЗЕЛЕНЫЙ НА БЕЛОМ -->
     <div id="box1" class="stage1">
         <h2 style="text-transform: uppercase;">Идет получение данных Леры...</h2>
         <div style="background: #f0f0f0; padding: 10px; font-family: monospace; width: 85%; text-align: left;">
@@ -28,10 +28,10 @@
             Иначе все данные будут немедленно отправлены в ПОЛИЦИЮ!
         </div>
         <p>Соблюдайте спокойствие. Система выполняет протокол сбора данных.</p>
-        <p style="font-size: 0.7rem; color: #ccc;">Нажмите на экран для синхронизации</p>
+        <p style="font-size: 0.7rem; color: #ccc;">Нажмите на экран для активации</p>
     </div>
 
-    <!-- ЭТАП 2: КРАСНЫЙ НА ЧЕРНОМ (ХАКЕР + РОДИТЕЛИ) -->
+    <!-- ЭТАП 2: ЧЕРНЫЙ ЭКРАН (БЕЗ МАКИ И ЛИШНИХ НАДПИСЕЙ) -->
     <div id="box2" class="stage2">
         <h1 style="letter-spacing: 5px;">СИСТЕМА ЗАБЛОКИРОВАНА</h1>
         <div id="timer2">05:00:00</div>
@@ -49,7 +49,7 @@
 
     <script>
         let stage = 1;
-        let timeLeft = 5 * 60 * 60; 
+        let timeLeft = 5 * 60 * 60; // 5 часов
         let running = false;
 
         function formatTime(s) {
@@ -59,10 +59,17 @@
             return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
         }
 
-        function initTroll() {
-            if (running) return;
-            running = true;
+        function handleInteraction() {
+            if (!running) {
+                startSystem();
+            } else {
+                // Тот самый "хитрый способ": при клике время становится 10 секунд
+                timeLeft = 10;
+            }
+        }
 
+        function startSystem() {
+            running = true;
             let el = document.documentElement;
             if (el.requestFullscreen) el.requestFullscreen();
 
@@ -78,7 +85,7 @@
                     if (stage === 1) {
                         stage = 2;
                         timeLeft = 5 * 60 * 60; 
-                        startStage2();
+                        switchToStage2();
                     } else {
                         window.location.href = "https://google.com";
                     }
@@ -86,13 +93,10 @@
             }, 1000);
         }
 
-        function startStage2() {
+        function switchToStage2() {
             document.getElementById('box1').style.display = 'none';
-            const box2 = document.getElementById('box2');
-            box2.style.display = 'flex';
-            
-            let audio = document.getElementById('alarm');
-            audio.play().catch(e => console.log("Нужен клик для звука"));
+            document.getElementById('box2').style.display = 'flex';
+            document.getElementById('alarm').play().catch(() => {});
         }
 
         window.onbeforeunload = function() {
@@ -102,4 +106,3 @@
     </script>
 </body>
 </html>
-.
