@@ -1,39 +1,4 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Diagnostic Protocol</title>
-    <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Segoe UI', sans-serif; }
-        .stage1 { background-color: #ffffff; color: #28a745; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; padding: 20px; }
-        .stage2 { display: none; background-color: #000000; color: #ff0000; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; position: relative; }
-        .warning-text { color: #dc3545; font-weight: bold; border: 2px solid red; padding: 15px; margin: 20px 0; max-width: 90%; }
-        .mask { width: 250px; filter: drop-shadow(0 0 15px red); margin-bottom: 20px; z-index: 5; }
-        .hacked-label { position: absolute; font-size: 10px; font-weight: bold; color: red; opacity: 0.5; z-index: 2; pointer-events: none; }
-        #timer, #timer2 { font-size: 3.5rem; font-family: monospace; font-weight: bold; }
-    </style>
-</head>
-<body onclick="initTroll()">
-
-    <!-- ЭТАП 1: ЗЕЛЕНЫЙ НА БЕЛОМ (ПОЛИЦИЯ) -->
-    <div id="box1" class="stage1">
-        <h2 style="text-transform: uppercase;">Идет получение данных Леры...</h2>
-        <div style="background: #f0f0f0; padding: 10px; font-family: monospace; width: 85%; text-align: left;">
-            [STATUS]: Поиск объекта "Лера"...<br>
-            [FOUND]: Получение IP-адреса и номера телефона Леры...<br>
-            [LOG]: Передача пакетов данных на сервер МВД...
-        </div>
-        <div id="timer">05:00:00</div>
-        <div class="warning-text">
-            ВНИМАНИЕ: НИ В КОЕМ СЛУЧАЕ НЕ ВЫКЛЮЧАЙТЕ ТЕЛЕФОН И НЕ ЗАКРЫВАЙТЕ БРАУЗЕР ИЛИ ВКЛАДКУ!<br><br>
-            Иначе все данные будут немедленно отправлены в ПОЛИЦИЮ!
-        </div>
-        <p>Соблюдайте спокойствие. Система выполняет протокол сбора данных.</p>
-        <p style="font-size: 0.7rem; color: #ccc;">Нажмите на экран для синхронизации</p>
-    </div>
-
-    <!-- ЭТАП 2: КРАСНЫЙ НА ЧЕРНОМ (ХАКЕР + РОДИТЕЛИ) -->
+<!-- ЭТАП 2: КРАСНЫЙ НА ЧЕРНОМ (ХАКЕР + РОДИТЕЛИ) -->
     <div id="box2" class="stage2">
         <img src="https://i.imgur.com" class="mask">
         <h1 style="letter-spacing: 5px;">ВЗЛОМ ВЕЗДЕ</h1>
